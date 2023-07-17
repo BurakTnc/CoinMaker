@@ -10,9 +10,11 @@ namespace _YabuGames.Scripts.Controllers
         private Camera _camera;
         private Vector3 _offset;
         private bool _isDragging;
+        private float _startingPosZ;
         private void Awake()
         {
             _camera = Camera.main;
+            _startingPosZ = transform.position.z;
         }
 
         private void StartDrag()
@@ -37,7 +39,7 @@ namespace _YabuGames.Scripts.Controllers
                 return;
             
             var calculatedPos = _camera.ScreenToWorldPoint(Input.mousePosition - _offset);
-            var desiredPos = new Vector3(calculatedPos.x, .5f, calculatedPos.z);
+            var desiredPos = new Vector3(calculatedPos.x, calculatedPos.y, _startingPosZ);
             transform.position = desiredPos;
         }
 
