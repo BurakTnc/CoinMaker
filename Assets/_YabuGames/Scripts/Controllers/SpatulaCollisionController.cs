@@ -16,9 +16,19 @@ namespace _YabuGames.Scripts.Controllers
         {
             if (other.CompareTag("Ore"))
             {
-                other.tag = "Untagged";
-                other.transform.SetParent(null);
-                _spatulaController.CollectOre(other.transform);
+                //other.tag = "Untagged";
+                //other.transform.SetParent(null);
+                _spatulaController.MineOre(other.transform);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Ore"))
+            {
+                //other.tag = "Untagged";
+                //other.transform.SetParent(null);
+                _spatulaController.EndMining(other.transform);
             }
         }
     }

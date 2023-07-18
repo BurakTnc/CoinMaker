@@ -9,7 +9,7 @@ namespace _YabuGames.Scripts.Controllers
     {
         private Camera _camera;
         private Vector3 _offset;
-        private bool _isDragging;
+        private bool _isMining;
         private float _startingPosZ;
         private void Awake()
         {
@@ -17,25 +17,19 @@ namespace _YabuGames.Scripts.Controllers
             _startingPosZ = transform.position.z;
         }
 
-        private void StartDrag()
+        private void OnMouseDown()
         {
-            if (!Input.GetMouseButtonDown(0)) 
-                return;
-            _isDragging = true;
             _offset = Input.mousePosition - _camera.WorldToScreenPoint(transform.position);
         }
 
-        private void EndDrag()
+        private void OnMouseUp()
         {
-            if (!Input.GetMouseButtonUp(0))
-                return;
-            
-            _isDragging = false;
+            _isMining = false;
         }
 
-        private void Drag()
+        private void OnMouseDrag()
         {
-            if (!Input.GetMouseButton(0)) 
+            if (_isMining) 
                 return;
             
             var calculatedPos = _camera.ScreenToWorldPoint(Input.mousePosition - _offset);
@@ -43,11 +37,14 @@ namespace _YabuGames.Scripts.Controllers
             transform.position = desiredPos;
         }
 
-        private void Update()
+        public void OnMine()
         {
-            StartDrag();
-            Drag();
-            EndDrag();
+            _isMining = true;
+        }
+
+        public void OffMine()
+        {
+            _isMining = false;
         }
     }
 }
