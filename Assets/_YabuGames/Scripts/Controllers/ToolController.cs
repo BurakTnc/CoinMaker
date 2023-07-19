@@ -1,4 +1,5 @@
 using System;
+using _YabuGames.Scripts.Interfaces;
 using _YabuGames.Scripts.Signals;
 using UnityEngine;
 
@@ -6,6 +7,14 @@ namespace _YabuGames.Scripts.Controllers
 {
     public class ToolController : MonoBehaviour
     {
+        private int _prevTool;
+        private bool _hasPrevTool;
+
+        private void Start()
+        {
+            LevelSignals.Instance.OnToolChange?.Invoke(0);
+        }
+
         private void OnEnable()
         {
             Subscribe();
@@ -28,10 +37,14 @@ namespace _YabuGames.Scripts.Controllers
 
         private void ChangeTool(int toolID)
         {
-            for (var i = 0; i < transform.childCount; i++)
+            if (_hasPrevTool)
             {
-                transform.GetChild(i).gameObject.SetActive(i == toolID);
+                transform.GetChild(_prevTool).GetComponent<ITool>().Disable();
             }
+
+            transform.GetChild(toolID).GetComponent<ITool>().Activate();
+            _prevTool = toolID;
+            _hasPrevTool = true;
         }
     }
 }

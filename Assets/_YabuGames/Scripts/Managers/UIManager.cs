@@ -92,7 +92,7 @@ namespace _YabuGames.Scripts.Managers
             gamePanel.SetActive(true);
             HapticManager.Instance.PlayFailureHaptic();
         }
-
+        
         public void PlayButton()
         {
             CoreGameSignals.Instance.OnGameStart?.Invoke();

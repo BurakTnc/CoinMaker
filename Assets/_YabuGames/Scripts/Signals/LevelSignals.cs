@@ -11,6 +11,7 @@ namespace _YabuGames.Scripts.Signals
 
         public UnityAction<GameState> OnChangeGameState = delegate { };
         public UnityAction<int> OnToolChange = delegate { };
+        
 
         private void Awake()
         {

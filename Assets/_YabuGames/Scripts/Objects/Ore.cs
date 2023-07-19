@@ -1,4 +1,5 @@
-using System;
+using _YabuGames.Scripts.Enums;
+using _YabuGames.Scripts.Signals;
 using DG.Tweening;
 using UnityEngine;
 
@@ -10,6 +11,26 @@ namespace _YabuGames.Scripts.Objects
         private float _vibrationCooldown = 1f;
         private float _timer;
 
+        private void OnEnable()
+        {
+            Subscribe();
+        }
+
+        private void OnDisable()
+        {
+            UnSubscribe();
+        }
+
+        private void Subscribe()
+        {
+            LevelSignals.Instance.OnChangeGameState += SetMeltingStatus;
+        }
+
+        private void UnSubscribe()
+        {
+            LevelSignals.Instance.OnChangeGameState -= SetMeltingStatus;
+        }
+        
         private void Update()
         {
             Mine();
@@ -38,6 +59,23 @@ namespace _YabuGames.Scripts.Objects
             _timer = Mathf.Clamp(_timer, 0, _vibrationCooldown);
             _vibrationCooldown = Mathf.Clamp(_vibrationCooldown, 0f, 1);
         }
-        
+        private void SetMeltingStatus(GameState state)
+        {
+            switch (state)
+            {
+                case GameState.Melting:
+                    StartMelting();
+                    break;
+                case GameState.Pouring:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void StartMelting()
+        {
+            transform.DOScale(Vector3.zero, 3.5f).SetEase(Ease.InSine).SetDelay(.2f);
+        }
     }
 }
