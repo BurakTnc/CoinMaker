@@ -7,6 +7,8 @@ namespace _YabuGames.Scripts.Objects
 {
     public class Ore : MonoBehaviour
     {
+        [SerializeField] private int oreID;
+        
         private bool _onMine;
         private float _vibrationCooldown = 1f;
         private float _timer;
@@ -75,6 +77,7 @@ namespace _YabuGames.Scripts.Objects
 
         private void StartMelting()
         {
+            LevelSignals.Instance.OnSelectCoin?.Invoke(oreID);
             transform.DOScale(Vector3.zero, 3.5f).SetEase(Ease.InSine).SetDelay(.2f);
         }
     }
