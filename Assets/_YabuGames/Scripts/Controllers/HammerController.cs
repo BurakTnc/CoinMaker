@@ -13,7 +13,8 @@ namespace _YabuGames.Scripts.Controllers
         [SerializeField] private float rotationIncreaseValue;
         [SerializeField] private Transform liquid;
         [SerializeField] private float pushMultiplier;
-        
+
+        private Material _mat;
         private bool _onAnimation;
         private bool _isSelected;
         private bool _isReset;
@@ -24,6 +25,7 @@ namespace _YabuGames.Scripts.Controllers
         private void Update()
         {
             BeginHit();
+            _mat.
         }
         
         private void BeginHit()
