@@ -25,7 +25,7 @@ namespace _YabuGames.Scripts.Controllers
         private void Update()
         {
             BeginHit();
-            _mat.
+           // _mat.do
         }
         
         private void BeginHit()
