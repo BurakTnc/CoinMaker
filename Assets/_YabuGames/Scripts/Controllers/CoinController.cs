@@ -1,6 +1,7 @@
 using System;
 using _YabuGames.Scripts.Enums;
 using _YabuGames.Scripts.Signals;
+using DG.Tweening;
 using UnityEngine;
 
 namespace _YabuGames.Scripts.Controllers
@@ -15,6 +16,8 @@ namespace _YabuGames.Scripts.Controllers
         private int _coinIndex;
         private bool _isPlaced;
         private int _stampCount;
+        private float _emission = 3f;
+        private bool _isColored;
         
 
 
@@ -46,6 +49,7 @@ namespace _YabuGames.Scripts.Controllers
             LevelSignals.Instance.OnSelectStamp += SetStampType;
             ToolSignals.Instance.HammerHit += PlaceTheCoin;
             ToolSignals.Instance.StampHit += StampTheCoin;
+            ToolSignals.Instance.CoolHit += CoolTheCoin;
         }
 
         private void UnSubscribe()
@@ -55,6 +59,7 @@ namespace _YabuGames.Scripts.Controllers
             LevelSignals.Instance.OnSelectStamp -= SetStampType;
             ToolSignals.Instance.HammerHit -= PlaceTheCoin;
             ToolSignals.Instance.StampHit -= StampTheCoin;
+            ToolSignals.Instance.CoolHit -= CoolTheCoin;
         }
 
         private void SetRawCoin(int coinID)
@@ -68,8 +73,9 @@ namespace _YabuGames.Scripts.Controllers
             switch (state)
             {
                 case GameState.Cooling:
-                    CoolTheCoin();
+                    RaiseTheCoin();
                     break;
+                
             }
         }
 
@@ -81,19 +87,37 @@ namespace _YabuGames.Scripts.Controllers
             _isPlaced = true;
             _selectedCoin.SetActive(true);
         }
+
+        private void RaiseTheCoin()
+        {
+            transform.DOMoveY(1.5f, 1).SetEase(Ease.OutSine).SetDelay(2f);
+        }
         private void CoolTheCoin()
         {
+            var coinMat = _selectedCoin.transform.GetChild(0).GetComponent<MeshRenderer>().material;
+            var stampMat = _stamp.GetComponent<MeshRenderer>().material;
+            var coinRenderer = _selectedCoin.transform.GetChild(0).GetComponent<MeshRenderer>();
+            var stampRenderer = _stamp.GetComponent<MeshRenderer>();
+
+            if (!_isColored)
+            {
+                _isColored = true;
+                _emission = -10;
+                //  coinMat.SetColor("_EmissionColor", new Color(0,0,0) * -10);
+                //  stampMat.SetColor("_EmissionColor", new Color(0,0,0) * -10);
+                // coinMat.DOColor(coinMaterials[_coinIndex].color, 2).SetEase(Ease.OutSine);
+                // stampMat.DOColor(coinMaterials[_coinIndex].color, 2).SetEase(Ease.OutSine);
+                coinRenderer.material = coinMaterials[_coinIndex];
+                stampRenderer.material = coinMaterials[_coinIndex];
+            }
+
+            _emission -= .4f;
             
+            _emission = Mathf.Clamp(_emission, -10, 3);
         }
 
         private void StampTheCoin()
         {
-            if (_stampCount >= 10)
-            {
-                LevelSignals.Instance.OnChangeGameState?.Invoke(GameState.Pouring);
-                return;
-            }
-
             _stampCount++;
             _stamp.SetActive(true);
             _stamp.transform.localScale += Vector3.forward*1.75f;

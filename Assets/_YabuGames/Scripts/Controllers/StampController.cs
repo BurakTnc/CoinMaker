@@ -1,3 +1,4 @@
+using _YabuGames.Scripts.Enums;
 using _YabuGames.Scripts.Interfaces;
 using _YabuGames.Scripts.Managers;
 using _YabuGames.Scripts.Signals;
@@ -16,9 +17,10 @@ namespace _YabuGames.Scripts.Controllers
         private bool _isSelected;
         private bool _isReset;
         private bool _isStamping;
-        private float _stampingCooldown = 1f;
+        private float _stampingCooldown = .5f;
         private float _timer;
-        private float _delayer;
+        private float _delayer = .25f;
+        public AudioClip _clip;
 
 
         private void Update()
@@ -62,12 +64,19 @@ namespace _YabuGames.Scripts.Controllers
             
             if (_timer <= 0)
             {
-                _stampingCooldown -= .2f;
-                
-                if (_stampingCooldown <= 0) 
+                _stampingCooldown -= _delayer;
+                _delayer -= .5f;
+                _delayer = Mathf.Clamp(_delayer, 0.03f, 1);
+
+                if (_stampingCooldown <= 0)
+                {
+                    LevelSignals.Instance.OnChangeGameState?.Invoke(GameState.Cooling);
+                    LevelSignals.Instance.OnToolChange?.Invoke(3);
                     return;
+                }
                 ToolSignals.Instance.StampHit?.Invoke();
                 ShakeManager.Instance.ShakeCamera(true);
+                AudioSource.PlayClipAtPoint(_clip,Camera.main.transform.position);
                 //vibrate
                 _timer += _stampingCooldown;
             }
@@ -97,8 +106,8 @@ namespace _YabuGames.Scripts.Controllers
 
             _isSelected = true;
             _onAnimation = true;
-            transform.DOMove(activePosition.position, 1).SetEase(Ease.OutSine).OnComplete(ReadyToUse).SetDelay(1);
-            transform.DORotate(desiredRotation, 1).SetEase(Ease.InSine).SetDelay(1);
+            transform.DOMove(activePosition.position, 1).SetEase(Ease.OutSine).OnComplete(ReadyToUse).SetDelay(2);
+            transform.DORotate(desiredRotation, 1).SetEase(Ease.InSine).SetDelay(2);
 
             void ReadyToUse()
             {
@@ -108,11 +117,21 @@ namespace _YabuGames.Scripts.Controllers
 
         public void Disable()
         {
-            var desiredRotation = disabledPosition.rotation.eulerAngles;
+            var desiredPosition = activePosition.position;
 
-            _isSelected = false;
-            transform.DOMove(disabledPosition.position, 1).SetEase(Ease.OutSine);
-            transform.DORotate(desiredRotation, 1).SetEase(Ease.InSine);
+            _isReset = true;
+            transform.DOMove(desiredPosition, .7f).SetEase(Ease.InSine)
+                .OnComplete(GoToIdle);
+            
+
+            void GoToIdle()
+            {
+                var desiredRotation = disabledPosition.rotation.eulerAngles;
+
+                _isSelected = false;
+                transform.DOMove(disabledPosition.position, 1).SetEase(Ease.OutSine).SetDelay(1);
+                transform.DORotate(desiredRotation, 1).SetEase(Ease.InSine).SetDelay(1);
+            }
         }
     }
 }

@@ -16,7 +16,6 @@ Material:
   - TCP2_SHADOW_LIGHT_COLOR
   - TCP2_SPECULAR
   - TCP2_SPECULAR_STYLIZED
-  - _EMISSION
   m_InvalidKeywords:
   - TCP2_UV_NORMALS_FULL
   - _CELPRIMARYMODE_SINGLE
@@ -201,7 +200,7 @@ Material:
     - _UnityShadowPower: 0.339
     - _UnityShadowSharpness: 1
     - _UseAlphaTest: 0
-    - _UseEmission: 1
+    - _UseEmission: 0
     - _UseFresnelReflections: 1
     - _UseMatCap: 0
     - _UseMatCapMask: 0

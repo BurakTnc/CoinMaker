@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Ore
+  - Water
   layers:
   - Default
   - TransparentFX

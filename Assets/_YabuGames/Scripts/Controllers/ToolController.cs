@@ -7,15 +7,12 @@ namespace _YabuGames.Scripts.Controllers
 {
     public class ToolController : MonoBehaviour
     {
-        [SerializeField] private Material _mat;
         private int _prevTool;
         private bool _hasPrevTool;
 
         private void Start()
         {
             LevelSignals.Instance.OnToolChange?.Invoke(0);
-            _mat.SetColor("_EmissionColor", _mat.color * 3);
-            
         }
 
         private void OnEnable()

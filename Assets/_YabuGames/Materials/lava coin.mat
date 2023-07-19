@@ -217,7 +217,7 @@ Material:
     - _VertexColorsEnabled: 0
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.990566, g: 0.55950147, b: 0.18222679, a: 1}
+    - _BaseColor: {r: 0.99215686, g: 0.9120893, b: 0.18039216, a: 1}
     - _Color: {r: 1, g: 0.84015507, b: 0.09803921, a: 1}
     - _Color1: {r: 0, g: 0.7, b: 0.74, a: 0}
     - _Color2: {r: 0.96999997, g: 0.67, b: 0.50999993, a: 0}
@@ -227,7 +227,7 @@ Material:
     - _ColorDimSteps: {r: 0.5849056, g: 0.5188339, b: 0.16278034, a: 1}
     - _ColorGradient: {r: 1, g: 0.85702795, b: 0.09803919, a: 1}
     - _Direction: {r: 0, g: 1, b: 0, a: 0}
-    - _EmissionColor: {r: 4.867144, g: 0.6625431, b: 0.02548243, a: 1}
+    - _EmissionColor: {r: 4.981132, g: 0.765961, b: 0, a: 1}
     - _FlatRimColor: {r: 1, g: 0.70837605, b: 0.010960094, a: 1}
     - _FlatSpecularColor: {r: 1, g: 0.85702795, b: 0.09803919, a: 1}
     - _HColor: {r: 1, g: 0.49693573, b: 0.2688679, a: 1}
