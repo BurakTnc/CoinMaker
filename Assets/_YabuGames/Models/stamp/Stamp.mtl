@@ -1,0 +1,19 @@
+newmtl stamp_mat
+bump 4_Normal.png
+Kd 0.5754716 0.5754716 0.5754716
+d 1
+
+newmtl stamp_mat_1
+Kd 0.5471698 0.4302242 0.3587575
+d 1
+
+newmtl stamp_mat_2
+bump 2_Normal.png
+Kd 0.6981132 0.6981132 0.6981132
+d 1
+
+newmtl stamp_mat_3
+bump 3_Normal.png
+Kd 0.4785454 0.585974 0.7519999
+d 1
+
