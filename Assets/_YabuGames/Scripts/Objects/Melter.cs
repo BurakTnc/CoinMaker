@@ -69,8 +69,8 @@ namespace _YabuGames.Scripts.Objects
 
         private void StartPouring()
         {
-            transform.DOMove(pouringPosition.position, 2).SetDelay(1).SetEase(Ease.OutSine).OnComplete(Pour);
-            transform.DORotate(pouringRotation, 2).SetDelay(1.5f).SetEase(Ease.OutSine);
+            transform.DOMove(pouringPosition.position, 2).SetDelay(.1f).SetEase(Ease.OutSine).OnComplete(Pour);
+            transform.DORotate(pouringRotation, 2).SetDelay(1f).SetEase(Ease.OutSine);
         }
 
         private void Pour()
@@ -84,6 +84,7 @@ namespace _YabuGames.Scripts.Objects
 
         private void GoToPreviousPosition()
         {
+            pouringEffect.SetActive(false);
             transform.DOMove(_startPosition, 2).SetEase(Ease.OutSine).OnComplete(() =>
                 LevelSignals.Instance.OnChangeGameState?.Invoke(GameState.Fixing));
             transform.DORotate(Vector3.zero, 2);

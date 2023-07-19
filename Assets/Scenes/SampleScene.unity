@@ -1625,6 +1625,7 @@ MonoBehaviour:
   disabledPosition: {fileID: 600559072}
   rotationIncreaseValue: 250
   liquid: {fileID: 1095951737}
+  pushMultiplier: 0.05
 --- !u!114 &2780741276869444929
 MonoBehaviour:
   m_ObjectHideFlags: 0

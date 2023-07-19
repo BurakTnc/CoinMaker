@@ -12,8 +12,11 @@ namespace _YabuGames.Scripts.Controllers
         [SerializeField] private Transform activePosition, disabledPosition;
         [SerializeField] private float rotationIncreaseValue;
         [SerializeField] private Transform liquid;
+        [SerializeField] private float pushMultiplier;
+        
         private bool _onAnimation;
         private bool _isSelected;
+        private bool _isReset;
         private float _timer;
         private float _delayer;
 
@@ -22,7 +25,7 @@ namespace _YabuGames.Scripts.Controllers
         {
             BeginHit();
         }
-
+        
         private void BeginHit()
         {
             if(_onAnimation || !_isSelected)
@@ -30,6 +33,7 @@ namespace _YabuGames.Scripts.Controllers
             
             if (Input.GetMouseButton(0))
             {
+                _isReset = false;
                 var currentRotation = transform.rotation.eulerAngles;
                 if (currentRotation.z <= 270)
                 {
@@ -40,20 +44,31 @@ namespace _YabuGames.Scripts.Controllers
                 currentRotation.z -= rotationIncreaseValue * Time.deltaTime;
                 transform.rotation= Quaternion.Euler(currentRotation);
             }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                if(_isReset)
+                    return;
+                ResetHammer();
+            }
         }
         private void Hit()
         {
-            _onAnimation = true;
-            var desiredRotation = transform.rotation.eulerAngles;
-            desiredRotation.z = -5;
-            transform.DOPunchRotation(Vector3.forward * 20, .4f, 10, 1f).OnComplete(Reset);
-            ShakeManager.Instance.ShakeCamera(false);
 
-            void Reset()
-            {
-                transform.DORotate(desiredRotation, 1).SetEase(Ease.InSine)
-                    .OnComplete(() => _onAnimation = false);
-            }
+            _onAnimation = true;
+            transform.DOPunchRotation(Vector3.forward * 20, .4f, 10, 1f).OnComplete(ResetHammer);
+            ShakeManager.Instance.ShakeCamera(false);
+            liquid.position += Vector3.down * pushMultiplier;
+            
+        }
+
+        private void ResetHammer()
+        {
+            var desiredRotation = activePosition.rotation.eulerAngles;
+
+            _isReset = true;
+            transform.DORotate(desiredRotation, .7f).SetEase(Ease.InSine)
+                .OnComplete(() => _onAnimation = false);
         }
         
         public void Activate()
