@@ -24,7 +24,7 @@ Shader "Toony Colors Pro 2/Examples/SG2/Animated Dissolve"
 		_DissolveGradientWidth ("Ramp Width", Range(0,1)) = 0.2
 		[TCP2Separator]
 		
-		[TCP2Vector4Floats(Contrast X,Contrast Y,Contrast Z,Smoothing,1,16,1,16,1,16,0.05,10)] _TriplanarSamplingStrength ("Triplanar Sampling Parameters", Vector) = (8,8,8,0.5)
+		[TCP2Vector4Floats(Contrast X,Contrast Y,Contrast Z,Smoothing,1,2,1,16,1,16,0.05,10)] _TriplanarSamplingStrength ("Triplanar Sampling Parameters", Vector) = (8,8,8,0.5)
 		// Custom Material Properties
 		 _DissolveValue ("Dissolve Value", Range(0,1)) = 0.5
 

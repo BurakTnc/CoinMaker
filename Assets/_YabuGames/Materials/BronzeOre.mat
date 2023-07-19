@@ -7,12 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BronzOre
+  m_Name: BronzeOre
   m_Shader: {fileID: -6465566751694194690, guid: edd7abf643fa4bc4e8561d4c280c97cf, type: 3}
   m_ValidKeywords:
   - TCP2_REFLECTIONS
   - TCP2_REFLECTIONS_FRESNEL
-  - TCP2_RIM_LIGHTING
   - TCP2_RIM_LIGHTING_LIGHTMASK
   - TCP2_SHADOW_LIGHT_COLOR
   - TCP2_SPECULAR
@@ -61,8 +60,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 2a2d71ee416d3c844adfa1a053ea32f4, type: 3}
+        m_Scale: {x: 3, y: 3}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
@@ -128,8 +127,8 @@ Material:
     - _FlatSpecularSize: 0.729
     - _Flatness: 0.574
     - _FlatnessExtra: 1
-    - _FresnelMax: 1.16
-    - _FresnelMin: 0.84
+    - _FresnelMax: 0.802
+    - _FresnelMin: 0.777
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -173,11 +172,11 @@ Material:
     - _RampType: 0
     - _ReceiveShadowsOff: 1
     - _ReflectionMapType: 0
-    - _ReflectionSmoothness: 0.473
+    - _ReflectionSmoothness: 0.782
     - _RenderingMode: 0
     - _RimEnabled: 0
     - _RimMax: 0
-    - _RimMin: 0.58
+    - _RimMin: 0.05
     - _SelfShadingSize: 0.358
     - _SelfShadingSizeExtra: 0.389
     - _ShadowColorLightAtten: 1
@@ -189,7 +188,7 @@ Material:
     - _SpecularHighlights: 1
     - _SpecularMapType: 0
     - _SpecularRoughness: 0.263
-    - _SpecularToonSize: 0.015
+    - _SpecularToonSize: 0.064
     - _SpecularToonSmoothness: 1
     - _SpecularType: 1
     - _SrcBlend: 1
@@ -210,14 +209,14 @@ Material:
     - _UseOcclusion: 0
     - _UseOutline: 0
     - _UseReflections: 1
-    - _UseRim: 1
+    - _UseRim: 0
     - _UseRimLightMask: 1
     - _UseShadowTexture: 0
     - _UseSpecular: 1
     - _VertexColorsEnabled: 0
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.754717, g: 0.51623005, b: 0.15307939, a: 1}
+    - _BaseColor: {r: 0.7529412, g: 0.5176471, b: 0.15294118, a: 1}
     - _Color: {r: 1, g: 0.84015507, b: 0.09803921, a: 1}
     - _Color1: {r: 0, g: 0.7, b: 0.74, a: 0}
     - _Color2: {r: 0.96999997, g: 0.67, b: 0.50999993, a: 0}
@@ -227,7 +226,7 @@ Material:
     - _ColorDimSteps: {r: 0.5849056, g: 0.5188339, b: 0.16278034, a: 1}
     - _ColorGradient: {r: 1, g: 0.85702795, b: 0.09803919, a: 1}
     - _Direction: {r: 0, g: 1, b: 0, a: 0}
-    - _EmissionColor: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
+    - _EmissionColor: {r: 12.844469, g: 2.2192016, b: 0.60523677, a: 1}
     - _FlatRimColor: {r: 1, g: 0.70837605, b: 0.010960094, a: 1}
     - _FlatSpecularColor: {r: 1, g: 0.85702795, b: 0.09803919, a: 1}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
@@ -235,7 +234,7 @@ Material:
     - _MatCapColor: {r: 0.0009765625, g: 0.0009765625, b: 0.0009765625, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _RimColor: {r: 0.8, g: 0.8, b: 0.8, a: 0.5}
+    - _RimColor: {r: 0.3482202, g: 0.3482202, b: 0.3482202, a: 0.5}
     - _SColor: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 1}
     - _SpecularColor: {r: 14.754423, g: 14.754423, b: 14.754423, a: 1}
     - _UnityShadowColor: {r: 0.85023, g: 0.85034, b: 0.8504499, a: 0.85056}

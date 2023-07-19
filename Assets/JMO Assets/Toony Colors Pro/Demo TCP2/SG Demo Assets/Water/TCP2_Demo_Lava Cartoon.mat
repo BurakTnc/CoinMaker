@@ -47,7 +47,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 8d928a03c9a6d8445a56096a84efd563, type: 3}
-        m_Scale: {x: 5, y: 5}
+        m_Scale: {x: 3, y: 3}
         m_Offset: {x: 0, y: 0}
     - _MainTex2:
         m_Texture: {fileID: 2800000, guid: 929f2fb0e4fa033409d770aa87bea9b9, type: 3}
@@ -87,11 +87,11 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendTCP2: 10
-    - _EmisPulseMin: 2
-    - _EmisPulseSpeed: 1
+    - _EmisPulseMin: 3
+    - _EmisPulseSpeed: 2
     - _FoamSmooth: 0.03
-    - _FoamSpread: 2.82
-    - _FoamStrength: 0.9
+    - _FoamSpread: 0.01
+    - _FoamStrength: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -100,8 +100,8 @@ Material:
     - _NormalDepthInfluence: 0.142
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RampSmooth: 1
-    - _RampThreshold: 0.5
+    - _RampSmooth: 0.171
+    - _RampThreshold: 0.527
     - _ReflRoughness: 0
     - _ReflStrength: 1
     - _RimMax: 1
@@ -132,8 +132,8 @@ Material:
     - _BumpSpeed: {r: 0.2, g: 0.2, b: -0.2, a: -0.2}
     - _Color: {r: 1, g: 0.73428, b: 0, a: 1}
     - _DepthColor: {r: 0.74264705, g: 0.11002181, b: 0, a: 1}
-    - _EmissionColor: {r: 0.8980393, g: 0.2392157, b: 0.003921569, a: 1}
-    - _FoamColor: {r: 0.7941176, g: 0.11501013, b: 0, a: 1}
+    - _EmissionColor: {r: 0.8980392, g: 0.019234288, b: 0.003921571, a: 1}
+    - _FoamColor: {r: 0.7921569, g: 0.6257196, b: 0, a: 1}
     - _FoamColor2: {r: 1, g: 0.93103445, b: 0, a: 1}
     - _FoamSpeed: {r: 0.5, g: 0.5, b: -0.5, a: -0.5}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
