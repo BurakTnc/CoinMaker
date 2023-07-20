@@ -21,11 +21,13 @@ namespace _YabuGames.Scripts.Controllers
         private float _timer;
         private int _collectedOre;
         private bool _tutorialSeen;
+        private BoxCollider _collider;
 
         private void Awake()
         {
             _collector = GameObject.Find("Melter").transform;
             _dragNDrop = GetComponent<DragNDropController>();
+            _collider.GetComponent<BoxCollider>();
         }
 
         private void Start()
@@ -117,13 +119,14 @@ namespace _YabuGames.Scripts.Controllers
             void ReadyToUse()
             {
                 _dragNDrop.enabled = true;
+                _collider.enabled = true;
             }
         }
 
         public void Disable()
         {
             var desiredRotation = disabledPosition.rotation.eulerAngles;
-            
+            _collider.enabled = false;
             _dragNDrop.enabled = false;
             transform.DOMove(disabledPosition.position, 1).SetEase(Ease.OutSine);
             transform.DORotate(desiredRotation, 1).SetEase(Ease.InSine);

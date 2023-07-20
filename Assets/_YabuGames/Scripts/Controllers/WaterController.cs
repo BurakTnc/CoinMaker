@@ -21,6 +21,9 @@ namespace _YabuGames.Scripts.Controllers
         private float _delayer;
         private bool _canCool;
         private bool _tutorialSeen;
+        private bool _isCooling;
+        private float _coolingTimer, _coolingCooldown=.03f, _coolingDelayer;
+        public AudioClip clip;
 
         private void Awake()
         {
@@ -41,6 +44,19 @@ namespace _YabuGames.Scripts.Controllers
             CheckWaterContact();
         }
 
+        private void CoolEffect()
+        {
+            if(!_isCooling)
+                return;
+            if (_coolingTimer <= 0)
+            {
+                if(_coolingTimer>1)
+                    return;
+                _coolingCooldown += _coolingDelayer;
+                _coolingDelayer += .5f;
+                AudioSource.PlayClipAtPoint(clip,_camera.transform.position);
+            }
+        }
         private void BeginDrag()
         {
             if(!_isActive)
