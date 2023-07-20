@@ -5,7 +5,6 @@ using _YabuGames.Scripts.Managers;
 using _YabuGames.Scripts.Signals;
 using DG.Tweening;
 using UnityEngine;
-using ToonyColorsPro;
 
 namespace _YabuGames.Scripts.Controllers
 {
@@ -23,6 +22,7 @@ namespace _YabuGames.Scripts.Controllers
         private float _timer;
         private float _delayer;
         private int _hitCount;
+        private bool _tutorialSeen;
 
 
         private void Update()
@@ -64,13 +64,18 @@ namespace _YabuGames.Scripts.Controllers
             transform.DOPunchRotation(Vector3.forward * 20, .4f, 10, 1f).OnComplete(ResetHammer);
             ShakeManager.Instance.ShakeCamera(false);
             liquid.position += Vector3.down * pushMultiplier;
+
+            if (!_tutorialSeen)
+            {
+                _tutorialSeen = true;
+                ToolSignals.Instance.TutorialInput?.Invoke();
+            }
             
             if (_hitCount < desiredHitCount) 
                 return;
-            LevelSignals.Instance.OnSelectStamp?.Invoke(3);//////-TEST-/////
-            LevelSignals.Instance.OnChangeGameState?.Invoke(GameState.Stamping);
+           // LevelSignals.Instance.OnSelectStamp?.Invoke(3);//////-TEST-/////
+            LevelSignals.Instance.OnChangeGameState?.Invoke(GameState.SelectingStamp);
             LevelSignals.Instance.OnToolChange?.Invoke(2);
-
             
 
         }

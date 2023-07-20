@@ -13,12 +13,10 @@ namespace _YabuGames.Scripts.Controllers
         [SerializeField] private Material[] coinMaterials;
 
         private GameObject _selectedCoin, _stamp;
-        private int _coinIndex;
+        public int _coinIndex;
         private bool _isPlaced;
-        private int _stampCount;
         private float _emission = 3f;
         private bool _isColored;
-        
 
 
         private void Awake()
@@ -66,6 +64,7 @@ namespace _YabuGames.Scripts.Controllers
         {
             _selectedCoin = transform.GetChild(coinID).gameObject;
             _coinIndex = coinID;
+            Debug.Log("index");
         }
 
         private void SetCoinState(GameState state)
@@ -75,7 +74,6 @@ namespace _YabuGames.Scripts.Controllers
                 case GameState.Cooling:
                     RaiseTheCoin();
                     break;
-                
             }
         }
 
@@ -109,6 +107,7 @@ namespace _YabuGames.Scripts.Controllers
                 // stampMat.DOColor(coinMaterials[_coinIndex].color, 2).SetEase(Ease.OutSine);
                 coinRenderer.material = coinMaterials[_coinIndex];
                 stampRenderer.material = coinMaterials[_coinIndex];
+                
             }
 
             _emission -= .4f;
@@ -118,7 +117,6 @@ namespace _YabuGames.Scripts.Controllers
 
         private void StampTheCoin()
         {
-            _stampCount++;
             _stamp.SetActive(true);
             _stamp.transform.localScale += Vector3.forward*1.75f;
         }

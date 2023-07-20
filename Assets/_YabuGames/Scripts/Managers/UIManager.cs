@@ -55,6 +55,8 @@ namespace _YabuGames.Scripts.Managers
                     CoreGameSignals.Instance.OnLevelWin += LevelWin;
                     CoreGameSignals.Instance.OnLevelFail += LevelLose;
                     CoreGameSignals.Instance.OnGameStart += OnGameStart;
+                    LevelSignals.Instance.OnChangeGameState += SetStates;
+                    ToolSignals.Instance.TutorialInput += TutorialInput;
                 }
         
                 private void UnSubscribe()
@@ -62,6 +64,8 @@ namespace _YabuGames.Scripts.Managers
                     CoreGameSignals.Instance.OnLevelWin -= LevelWin;
                     CoreGameSignals.Instance.OnLevelFail -= LevelLose;
                     CoreGameSignals.Instance.OnGameStart -= OnGameStart;
+                    LevelSignals.Instance.OnChangeGameState -= SetStates;
+                    ToolSignals.Instance.TutorialInput -= TutorialInput;
                 }
 
         #endregion
@@ -117,6 +121,14 @@ namespace _YabuGames.Scripts.Managers
                     break;
             }
         }
+
+        private void TutorialInput()
+        {
+            foreach (var text in tutorialTexts)
+            {
+                text.SetActive(false);
+            }
+        }
         private void LevelWin()
         {
             gamePanel.SetActive(false);
@@ -134,17 +146,25 @@ namespace _YabuGames.Scripts.Managers
         public void ChooseStampButton(int stampID)
         {
             LevelSignals.Instance.OnSelectStamp?.Invoke(stampID);
+            LevelSignals.Instance.OnChangeGameState?.Invoke(GameState.Stamping);
+           // LevelSignals.Instance.OnToolChange?.Invoke(2);
             stampPanel.SetActive(false);
+            HapticManager.Instance.PlaySelectionHaptic();
         }
 
-        public void ChooseOrePanel(int oreID)
+        public void ChooseOreButton(int oreID)
         {
+            Debug.Log(oreID);
+            LevelSignals.Instance.OnSelectCoin?.Invoke(oreID);
             LevelSignals.Instance.OnSelectOre?.Invoke(oreID);
+            LevelSignals.Instance.OnChangeGameState?.Invoke(GameState.CollectingOre);
+            orePanel.SetActive(false);
+            HapticManager.Instance.PlaySelectionHaptic();
         }
         public void PlayButton()
         {
             CoreGameSignals.Instance.OnGameStart?.Invoke();
-            LevelSignals.Instance.OnChangeGameState?.Invoke(GameState.Ordering);
+            LevelSignals.Instance.OnChangeGameState?.Invoke(GameState.SelectingOre); ///TEST///
             HapticManager.Instance.PlaySelectionHaptic();
         }
 

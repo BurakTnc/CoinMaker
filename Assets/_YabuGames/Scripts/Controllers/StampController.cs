@@ -20,6 +20,7 @@ namespace _YabuGames.Scripts.Controllers
         private float _stampingCooldown = .5f;
         private float _timer;
         private float _delayer = .25f;
+        private bool _tutorialSeen;
         public AudioClip _clip;
 
 
@@ -89,6 +90,12 @@ namespace _YabuGames.Scripts.Controllers
            // transform.DOPunchRotation(Vector3.forward * 5, .5f, 10, 0f);
            _isStamping = true;
            
+           if (_tutorialSeen)
+               return;
+           _tutorialSeen = true;
+           ToolSignals.Instance.TutorialInput?.Invoke();
+
+
         }
 
         private void ResetStamp()

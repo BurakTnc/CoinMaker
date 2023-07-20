@@ -77,7 +77,6 @@ namespace _YabuGames.Scripts.Objects
 
         private void StartMelting()
         {
-            LevelSignals.Instance.OnSelectCoin?.Invoke(oreID);
             transform.DOScale(Vector3.zero, 3.5f).SetEase(Ease.InSine).SetDelay(.2f);
         }
     }

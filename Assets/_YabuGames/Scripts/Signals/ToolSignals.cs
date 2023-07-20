@@ -7,7 +7,8 @@ namespace _YabuGames.Scripts.Signals
     public class ToolSignals : MonoBehaviour
     {
         public static ToolSignals Instance;
-        
+
+        public UnityAction TutorialInput = delegate { };
         public UnityAction HammerHit = delegate { };
         public UnityAction StampHit = delegate { };
         public UnityAction CoolHit = delegate { };

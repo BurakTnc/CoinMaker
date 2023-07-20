@@ -20,7 +20,8 @@ namespace _YabuGames.Scripts.Controllers
         private float _timer;
         private float _delayer;
         private bool _canCool;
-        
+        private bool _tutorialSeen;
+
         // private void OnEnable()
         // {
         //     Subscribe();
@@ -90,6 +91,10 @@ namespace _YabuGames.Scripts.Controllers
                     return;
                 _timer += _delayer;
                 ToolSignals.Instance.CoolHit?.Invoke();
+                if (_tutorialSeen)
+                    return;
+                _tutorialSeen = true;
+                ToolSignals.Instance.TutorialInput?.Invoke();
             }
 
             _timer -= Time.deltaTime;

@@ -35,15 +35,15 @@ namespace _YabuGames.Scripts.Controllers
 
         private void SetStoneState(GameState state)
         {
-            if (state != GameState.SelectingOre) 
+            if (state != GameState.CollectingOre) 
                 return;
             var stone = transform.GetChild(_selectedOre);
-            stone.DOMove(activePosition.position, 1).SetEase(Ease.OutSine).SetDelay(1).OnComplete(BeginMining);
+            stone.DOMove(activePosition.position, 1).SetEase(Ease.OutSine).SetDelay(0).OnComplete(BeginMining);
         }
 
         private void BeginMining()
         {
-            LevelSignals.Instance.OnChangeGameState?.Invoke(GameState.CollectingOre);
+           // LevelSignals.Instance.OnChangeGameState?.Invoke(GameState.CollectingOre);
             LevelSignals.Instance.OnToolChange?.Invoke(0);
         }
         private void SelectOre(int oreID)

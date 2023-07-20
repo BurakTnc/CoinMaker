@@ -21,6 +21,8 @@ namespace _YabuGames.Scripts.Controllers
         private float _vibrationCoolDown = .8f;
         private float _timer;
         private int _collectedOre;
+        private bool _tutorialSeen;
+
         private void Awake()
         {
             _collector = GameObject.Find("Melter").transform;
@@ -75,6 +77,10 @@ namespace _YabuGames.Scripts.Controllers
             {
                 LevelSignals.Instance.OnChangeGameState?.Invoke(GameState.Melting);
             }
+            if (_tutorialSeen)
+                return;
+            _tutorialSeen = true;
+            ToolSignals.Instance.TutorialInput?.Invoke();
         }
 
         public void MineOre(Transform ore)

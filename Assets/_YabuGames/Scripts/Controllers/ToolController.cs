@@ -12,7 +12,7 @@ namespace _YabuGames.Scripts.Controllers
 
         private void Start()
         {
-            LevelSignals.Instance.OnToolChange?.Invoke(0);
+            
         }
 
         private void OnEnable()
