@@ -11,7 +11,7 @@ namespace _YabuGames.Scripts.Managers
     {
         public static UIManager Instance;
 
-        [SerializeField] private GameObject mainPanel, gamePanel, winPanel, stampPanel,orePanel;
+        [SerializeField] private GameObject mainPanel, gamePanel, winPanel, stampPanel, orePanel, debugPanel;
         [SerializeField] private TextMeshProUGUI[] moneyText;
         [SerializeField] private GameObject[] tutorialTexts;
         [SerializeField] private TextMeshProUGUI earnedText;
@@ -175,6 +175,15 @@ namespace _YabuGames.Scripts.Managers
             HapticManager.Instance.PlaySelectionHaptic();
         }
 
+        public void OpenDebugPanel()
+        {
+            debugPanel.SetActive(true);
+        }
+
+        public void CloseDebugPanel()
+        {
+            debugPanel.SetActive(false);
+        }
         public void MenuButton()
         {
             mainPanel.SetActive(true);

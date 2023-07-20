@@ -1,79 +1,57 @@
+using System;
 using _YabuGames.Scripts.Signals;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _YabuGames.Scripts.Controllers
 {
     public class CameraController : MonoBehaviour
     {
-        [SerializeField] private float followSpeed = 3f;
-        [SerializeField] private Vector3 offset;
-        
+        [SerializeField] private Slider camDistance, camRotation, gameSpeed;
+
         private Transform _player;
-        private bool _isGameRunning = false;
+        private Vector3 _debuggedPosition, _debuggedRotation;
+        private Vector3 _defaultPosition, _defaultRotation;
+        private bool _isDebug;
 
-        private void Awake()
+        private void Start()
         {
-            _player = GameObject.Find("Player").transform;
-        }
+            _defaultPosition = transform.position;
+            _defaultRotation = transform.rotation.eulerAngles;
 
-        private void OnEnable()
-        {
-            Subscribe();
-        }
-
-        private void OnDisable()
-        {
-            UnSubscribe();
+            _debuggedPosition = _defaultPosition;
+            _debuggedRotation = _defaultRotation;
         }
 
         void Update()
         {
-            Follow();
+            Debug();
         }
 
-        #region Subscribtions
-
-        private void Subscribe()
-                {
-                    CoreGameSignals.Instance.OnGameStart += OnGameStart;
-                    CoreGameSignals.Instance.OnLevelFail += OnGameEnd;
-                    CoreGameSignals.Instance.OnLevelWin += OnGameEnd;
-                }
-        
-                private void UnSubscribe()
-                {
-                    CoreGameSignals.Instance.OnGameStart -= OnGameStart;
-                    CoreGameSignals.Instance.OnLevelFail -= OnGameEnd;
-                    CoreGameSignals.Instance.OnLevelWin -= OnGameEnd;
-                }
-
-        #endregion
-        
-        private void OnGameStart()
+        public void DebugModeOn()
         {
-            _isGameRunning = true;
+            _isDebug = true;
         }
 
-        private void OnGameEnd()
+        public void DebugModeOff()
         {
-            _isGameRunning = false;
+            _isDebug = false;
+            transform.position = _defaultPosition;
+            transform.rotation = Quaternion.Euler(_defaultRotation);
         }
 
-        private void Follow()
+        private void Debug()
         {
-            if (_isGameRunning)
+            if (_isDebug)
             {
-                transform.position = Vector3.Lerp(transform.position, _player.position + offset,
-                    followSpeed * Time.deltaTime);
-            }
+                _debuggedPosition.z = camDistance.value;
+                _debuggedRotation.x = camRotation.value;
+                
+                transform.position = _debuggedPosition;
+                transform.rotation = Quaternion.Euler(_debuggedRotation);
 
-                                     // For Limited Follow
-            
-            // if (_isGameRunning)
-            // {
-            //     Vector3 desiredPos = new Vector3(0, transform.position.y, _player.position.z) + offset;
-            //     transform.position = Vector3.Lerp(transform.position, desiredPos, followSpeed * Time.deltaTime);
-            // }
+                Time.timeScale = gameSpeed.value;
+            }
         }
     }
 }
