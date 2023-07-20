@@ -147,7 +147,7 @@ namespace _YabuGames.Scripts.Managers
         {
             LevelSignals.Instance.OnSelectStamp?.Invoke(stampID);
             LevelSignals.Instance.OnChangeGameState?.Invoke(GameState.Stamping);
-           // LevelSignals.Instance.OnToolChange?.Invoke(2);
+            LevelSignals.Instance.OnToolChange?.Invoke(2);
             stampPanel.SetActive(false);
             HapticManager.Instance.PlaySelectionHaptic();
         }

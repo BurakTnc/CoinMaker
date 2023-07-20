@@ -1,3 +1,4 @@
+using System;
 using _YabuGames.Scripts.Enums;
 using _YabuGames.Scripts.Interfaces;
 using _YabuGames.Scripts.Managers;
@@ -23,6 +24,10 @@ namespace _YabuGames.Scripts.Controllers
         private bool _tutorialSeen;
         public AudioClip _clip;
 
+        private void Start()
+        {
+            disabledPosition.SetPositionAndRotation(transform.position,transform.rotation);
+        }
 
         private void Update()
         {

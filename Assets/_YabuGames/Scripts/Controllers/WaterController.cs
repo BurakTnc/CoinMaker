@@ -22,31 +22,16 @@ namespace _YabuGames.Scripts.Controllers
         private bool _canCool;
         private bool _tutorialSeen;
 
-        // private void OnEnable()
-        // {
-        //     Subscribe();
-        // }
-        //
-        // private void OnDisable()
-        // {
-        //     UnSubscribe();
-        // }
-        //
-        // private void Subscribe()
-        // {
-        //     LevelSignals.Instance.OnChangeGameState += SetWaterState;
-        // }
-        //
-        // private void UnSubscribe()
-        // {
-        //     LevelSignals.Instance.OnChangeGameState -= SetWaterState;
-        // }
-
         private void Awake()
         {
             _coin = GameObject.Find("CoinRoot");
             _coinDefaultPos = _coin.transform.position;
             _camera=Camera.main;
+        }
+
+        private void Start()
+        {
+            disabledPosition.SetPositionAndRotation(transform.position,transform.rotation);
         }
 
         private void Update()
@@ -90,7 +75,9 @@ namespace _YabuGames.Scripts.Controllers
                 if(_timer>0)
                     return;
                 _timer += _delayer;
+                _isActive = false;
                 ToolSignals.Instance.CoolHit?.Invoke();
+                LevelSignals.Instance.OnChangeGameState?.Invoke(GameState.Extraction);
                 if (_tutorialSeen)
                     return;
                 _tutorialSeen = true;
@@ -108,14 +95,7 @@ namespace _YabuGames.Scripts.Controllers
             transform.DOMove(activePosition.position, 1).SetEase(Ease.OutSine).SetDelay(2);
             transform.DORotate(desiredRotation, 1).SetEase(Ease.OutSine).SetDelay(2);
         }
-
-        private void SetWaterState(GameState state)
-        {
-            if (state == GameState.Cooling)
-            {
-                PlaceTheWater();
-            }
-        }
+        
 
         private void ResetTheWater()
         {

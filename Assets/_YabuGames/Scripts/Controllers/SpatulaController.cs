@@ -6,7 +6,6 @@ using _YabuGames.Scripts.Objects;
 using _YabuGames.Scripts.Signals;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 namespace _YabuGames.Scripts.Controllers
@@ -27,6 +26,11 @@ namespace _YabuGames.Scripts.Controllers
         {
             _collector = GameObject.Find("Melter").transform;
             _dragNDrop = GetComponent<DragNDropController>();
+        }
+
+        private void Start()
+        {
+            disabledPosition.SetPositionAndRotation(transform.position,transform.rotation);
         }
 
         private void Update()
@@ -107,8 +111,8 @@ namespace _YabuGames.Scripts.Controllers
         {
             var desiredRotation = activePosition.rotation.eulerAngles;
             
-            transform.DOMove(activePosition.position, 1).SetEase(Ease.OutSine).OnComplete(ReadyToUse).SetDelay(1);
-            transform.DORotate(desiredRotation, 1).SetEase(Ease.InSine).SetDelay(1);
+            transform.DOMove(activePosition.position, 1).SetEase(Ease.OutSine).OnComplete(ReadyToUse);
+            transform.DORotate(desiredRotation, 1).SetEase(Ease.InSine);
             
             void ReadyToUse()
             {

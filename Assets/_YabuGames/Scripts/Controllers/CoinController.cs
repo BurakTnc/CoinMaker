@@ -8,27 +8,12 @@ namespace _YabuGames.Scripts.Controllers
 {
     public class CoinController : MonoBehaviour
     {
-        public static CoinController Instance;
-
         [SerializeField] private Material[] coinMaterials;
 
         private GameObject _selectedCoin, _stamp;
-        public int _coinIndex;
+        private int _coinIndex;
         private bool _isPlaced;
-        private float _emission = 3f;
         private bool _isColored;
-
-
-        private void Awake()
-        {
-            if (Instance != this && Instance != null) 
-            {
-                Destroy(this);
-                return;
-            }
-
-            Instance = this;
-        }
 
         private void OnEnable()
         {
@@ -64,7 +49,6 @@ namespace _YabuGames.Scripts.Controllers
         {
             _selectedCoin = transform.GetChild(coinID).gameObject;
             _coinIndex = coinID;
-            Debug.Log("index");
         }
 
         private void SetCoinState(GameState state)
@@ -74,9 +58,28 @@ namespace _YabuGames.Scripts.Controllers
                 case GameState.Cooling:
                     RaiseTheCoin();
                     break;
+                case GameState.Extraction:
+                    ShowTheCoin();
+                    break;
             }
         }
 
+        private void ShowTheCoin()
+        {
+            transform.DOMoveY(2.5f, 1).SetEase(Ease.OutBack).OnComplete(Rotate).SetDelay(2.5f);
+
+            void Rotate()
+            {
+                transform.DORotate(new Vector3(-60, 0, 0), .5f).SetEase(Ease.InBack).OnComplete(Shake);
+            }
+
+            void Shake()
+            {
+                transform.DOShakeRotation(.2f, new Vector3(0, 20, 0), 10, 100).SetLoops(4, LoopType.Yoyo)
+                    .OnComplete(() => CoreGameSignals.Instance.OnLevelWin?.Invoke()).SetDelay(.2f);
+                
+            }
+        }
         private void PlaceTheCoin()
         {
             if(_isPlaced)
@@ -92,27 +95,17 @@ namespace _YabuGames.Scripts.Controllers
         }
         private void CoolTheCoin()
         {
-            var coinMat = _selectedCoin.transform.GetChild(0).GetComponent<MeshRenderer>().material;
-            var stampMat = _stamp.GetComponent<MeshRenderer>().material;
             var coinRenderer = _selectedCoin.transform.GetChild(0).GetComponent<MeshRenderer>();
             var stampRenderer = _stamp.GetComponent<MeshRenderer>();
 
             if (!_isColored)
             {
                 _isColored = true;
-                _emission = -10;
-                //  coinMat.SetColor("_EmissionColor", new Color(0,0,0) * -10);
-                //  stampMat.SetColor("_EmissionColor", new Color(0,0,0) * -10);
-                // coinMat.DOColor(coinMaterials[_coinIndex].color, 2).SetEase(Ease.OutSine);
-                // stampMat.DOColor(coinMaterials[_coinIndex].color, 2).SetEase(Ease.OutSine);
                 coinRenderer.material = coinMaterials[_coinIndex];
                 stampRenderer.material = coinMaterials[_coinIndex];
                 
             }
-
-            _emission -= .4f;
             
-            _emission = Mathf.Clamp(_emission, -10, 3);
         }
 
         private void StampTheCoin()

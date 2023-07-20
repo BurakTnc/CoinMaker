@@ -23,7 +23,12 @@ namespace _YabuGames.Scripts.Controllers
         private float _delayer;
         private int _hitCount;
         private bool _tutorialSeen;
+        private bool _isActive;
 
+        private void Start()
+        {
+            disabledPosition.SetPositionAndRotation(transform.position,transform.rotation);
+        }
 
         private void Update()
         {
@@ -32,7 +37,7 @@ namespace _YabuGames.Scripts.Controllers
         
         private void BeginHit()
         {
-            if(_onAnimation || !_isSelected)
+            if(_onAnimation || !_isSelected || !_isActive)
                 return;
             
             if (Input.GetMouseButton(0))
@@ -73,10 +78,11 @@ namespace _YabuGames.Scripts.Controllers
             
             if (_hitCount < desiredHitCount) 
                 return;
+            _isActive = false;
+            liquid.gameObject.SetActive(false);
            // LevelSignals.Instance.OnSelectStamp?.Invoke(3);//////-TEST-/////
             LevelSignals.Instance.OnChangeGameState?.Invoke(GameState.SelectingStamp);
-            LevelSignals.Instance.OnToolChange?.Invoke(2);
-            
+
 
         }
 
@@ -91,6 +97,7 @@ namespace _YabuGames.Scripts.Controllers
         
         public void Activate()
         {
+            _isActive = true;
             var desiredRotation = activePosition.rotation.eulerAngles;
 
             _isSelected = true;
@@ -106,6 +113,7 @@ namespace _YabuGames.Scripts.Controllers
 
         public void Disable()
         {
+            _isActive = false;
             var desiredRotation = activePosition.rotation.eulerAngles;
 
             _isReset = true;
