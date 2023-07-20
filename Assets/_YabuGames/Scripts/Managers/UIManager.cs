@@ -1,4 +1,5 @@
 using System;
+using _YabuGames.Scripts.Enums;
 using _YabuGames.Scripts.Signals;
 using TMPro;
 using UnityEngine;
@@ -8,9 +9,12 @@ namespace _YabuGames.Scripts.Managers
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance;
-        
-        [SerializeField] private GameObject mainPanel, gamePanel, winPanel, losePanel, storePanel;
+
+        [SerializeField] private GameObject mainPanel, gamePanel, winPanel, stampPanel,orePanel;
         [SerializeField] private TextMeshProUGUI[] moneyText;
+        [SerializeField] private GameObject[] tutorialTexts;
+
+        private int _tutorialSeen;
 
 
         private void Awake()
@@ -79,6 +83,40 @@ namespace _YabuGames.Scripts.Managers
                 }
             }
         }
+
+        private void SetStates(GameState state)
+        {
+            switch (state)
+            { 
+                case GameState.SelectingOre:
+                    orePanel.SetActive(true);
+                    break;
+                
+                case GameState.CollectingOre:
+                    orePanel.SetActive(false);
+                    tutorialTexts[0].SetActive(true);
+                    break;
+                
+                case GameState.Fixing:
+                    tutorialTexts[1].SetActive(true);
+                    break;
+                
+                case GameState.SelectingStamp:
+                    stampPanel.SetActive(true);
+                    break;
+                
+                case GameState.Stamping:
+                    stampPanel.SetActive(false);
+                    tutorialTexts[2].SetActive(true);
+                    break;
+                
+                case GameState.Cooling:
+                    tutorialTexts[3].SetActive(true);
+                    break;
+                default:
+                    break;
+            }
+        }
         private void LevelWin()
         {
             gamePanel.SetActive(false);
@@ -92,10 +130,21 @@ namespace _YabuGames.Scripts.Managers
             gamePanel.SetActive(true);
             HapticManager.Instance.PlayFailureHaptic();
         }
-        
+
+        public void ChooseStampButton(int stampID)
+        {
+            LevelSignals.Instance.OnSelectStamp?.Invoke(stampID);
+            stampPanel.SetActive(false);
+        }
+
+        public void ChooseOrePanel(int oreID)
+        {
+            LevelSignals.Instance.OnSelectOre?.Invoke(oreID);
+        }
         public void PlayButton()
         {
             CoreGameSignals.Instance.OnGameStart?.Invoke();
+            LevelSignals.Instance.OnChangeGameState?.Invoke(GameState.Ordering);
             HapticManager.Instance.PlaySelectionHaptic();
         }
 

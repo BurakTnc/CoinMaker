@@ -13,6 +13,7 @@ namespace _YabuGames.Scripts.Signals
         public UnityAction<int> OnToolChange = delegate { };
         public UnityAction<int> OnSelectCoin = delegate { };
         public UnityAction<int> OnSelectStamp = delegate { };
+        public UnityAction<int> OnSelectOre = delegate { };
 
 
         private void Awake()
