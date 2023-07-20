@@ -793,7 +793,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4754164857216418908}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &6316061370349249768
 SkinnedMeshRenderer:
@@ -1232,7 +1232,7 @@ Transform:
   - {fileID: 3976657225135035383}
   - {fileID: 703270332206929755}
   m_Father: {fileID: 4754164857216418908}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5382363487369928422
 GameObject:
@@ -1263,9 +1263,9 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4975635773165400756}
   - {fileID: 2926161004127159853}
   - {fileID: 984737401505686728}
-  - {fileID: 4975635773165400756}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1282,7 +1282,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: f94c43b9f353e4a22a54b6d1effdbf4f, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -2291,9 +2291,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4754164857216418908}
     m_Modifications:
+    - target: {fileID: 890588385128415239, guid: a2ac46e7caa4d4895a53753b238870e4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.003
+      objectReference: {fileID: 0}
     - target: {fileID: 2438690656317263293, guid: a2ac46e7caa4d4895a53753b238870e4, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2438690656317263293, guid: a2ac46e7caa4d4895a53753b238870e4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2338,6 +2342,10 @@ PrefabInstance:
     - target: {fileID: 8704361512024654879, guid: a2ac46e7caa4d4895a53753b238870e4, type: 3}
       propertyPath: m_Name
       value: ChatBubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704361512024654879, guid: a2ac46e7caa4d4895a53753b238870e4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2ac46e7caa4d4895a53753b238870e4, type: 3}

@@ -164,7 +164,7 @@ namespace _YabuGames.Scripts.Managers
         public void PlayButton()
         {
             CoreGameSignals.Instance.OnGameStart?.Invoke();
-            LevelSignals.Instance.OnChangeGameState?.Invoke(GameState.SelectingOre); ///TEST///
+            LevelSignals.Instance.OnChangeGameState?.Invoke(GameState.Ordering); ///TEST///
             HapticManager.Instance.PlaySelectionHaptic();
         }
 
