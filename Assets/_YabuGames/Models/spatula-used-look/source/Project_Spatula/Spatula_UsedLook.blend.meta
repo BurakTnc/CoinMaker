@@ -3,7 +3,12 @@ guid: 9db7dc75dd2f449a78e636787fb66495
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Spatula
+    second: {fileID: 2100000, guid: 7f17bede2518847a892e15d26c3ae284, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
