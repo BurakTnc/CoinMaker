@@ -23,6 +23,7 @@ namespace _YabuGames.Scripts.Managers
 
             #endregion
             GetValues();
+            Application.targetFrameRate = 60;
         }
 
         #region Subscribtions
