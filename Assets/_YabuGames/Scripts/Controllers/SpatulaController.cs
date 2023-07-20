@@ -27,7 +27,7 @@ namespace _YabuGames.Scripts.Controllers
         {
             _collector = GameObject.Find("Melter").transform;
             _dragNDrop = GetComponent<DragNDropController>();
-            _collider.GetComponent<BoxCollider>();
+            _collider = GetComponent<BoxCollider>();
         }
 
         private void Start()

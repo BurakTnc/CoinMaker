@@ -42,6 +42,7 @@ namespace _YabuGames.Scripts.Controllers
             BeginDrag();
             Drag();
             CheckWaterContact();
+            CoolEffect();
         }
 
         private void CoolEffect()
@@ -90,6 +91,7 @@ namespace _YabuGames.Scripts.Controllers
             {
                 if(_timer>0)
                     return;
+                _isCooling = true;
                 _timer += _delayer;
                 _isActive = false;
                 ToolSignals.Instance.CoolHit?.Invoke();
