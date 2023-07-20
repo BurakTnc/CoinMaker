@@ -75,7 +75,7 @@ namespace _YabuGames.Scripts.Managers
 
         private void LoadScene()
         {
-            SceneManager.LoadScene(sceneID);
+            SceneManager.LoadScene(0);
         }
     }
 }

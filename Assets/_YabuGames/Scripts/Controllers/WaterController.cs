@@ -1,6 +1,7 @@
 using System;
 using _YabuGames.Scripts.Enums;
 using _YabuGames.Scripts.Interfaces;
+using _YabuGames.Scripts.Managers;
 using _YabuGames.Scripts.Signals;
 using DG.Tweening;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace _YabuGames.Scripts.Controllers
 {
     public class WaterController : MonoBehaviour,ITool
     {
-        [SerializeField] private Transform activePosition, disabledPosition;
+        [SerializeField] private Transform activePosition;
 
         private GameObject _coin;
         private bool _isActive;
@@ -23,6 +24,7 @@ namespace _YabuGames.Scripts.Controllers
         private bool _tutorialSeen;
         private bool _isCooling;
         private float _coolingTimer, _coolingCooldown=.03f, _coolingDelayer=.05f;
+        private Vector3 _disabledPosition, _disabledRotation;
         public AudioClip clip;
 
         private void Awake()
@@ -34,7 +36,8 @@ namespace _YabuGames.Scripts.Controllers
 
         private void Start()
         {
-            disabledPosition.SetPositionAndRotation(transform.position,transform.rotation);
+            _disabledPosition = transform.position;
+            _disabledRotation = transform.rotation.eulerAngles;
         }
 
         private void Update()
@@ -55,6 +58,7 @@ namespace _YabuGames.Scripts.Controllers
                     return;
                 _coolingCooldown += _coolingDelayer;
                 _coolingDelayer += .02f;
+                HapticManager.Instance.PlayRigidHaptic();
                 AudioSource.PlayClipAtPoint(clip,_camera.transform.position);
                 _coolingTimer += _coolingCooldown;
             }
@@ -122,10 +126,9 @@ namespace _YabuGames.Scripts.Controllers
 
         private void ResetTheWater()
         {
-            var desiredRotation = disabledPosition.rotation.eulerAngles;
 
-            transform.DOMove(disabledPosition.position, 1).SetEase(Ease.InSine);
-            transform.DORotate(desiredRotation, 1).SetEase(Ease.InSine);
+            transform.DOMove(_disabledPosition, 1).SetEase(Ease.InSine);
+            transform.DORotate(_disabledRotation, 1).SetEase(Ease.InSine);
         }
 
         public void Activate()

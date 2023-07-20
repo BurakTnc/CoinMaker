@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using _YabuGames.Scripts.Managers;
 using DG.Tweening;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ namespace _YabuGames.Scripts.Controllers
         private void OnMouseDown()
         {
             _offset = Input.mousePosition - _camera.WorldToScreenPoint(transform.position);
+            HapticManager.Instance.PlayLightHaptic();
         }
 
         private void OnMouseUp()

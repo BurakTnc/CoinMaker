@@ -10,11 +10,13 @@ namespace _YabuGames.Scripts.Controllers
 {
     public class HammerController : MonoBehaviour,ITool
     {
-        [SerializeField] private Transform activePosition, disabledPosition;
+        [SerializeField] private Transform activePosition;
         [SerializeField] private float rotationIncreaseValue;
         [SerializeField] private Transform liquid;
         [SerializeField] private float pushMultiplier;
         [SerializeField] private int desiredHitCount;
+        [SerializeField] private GameObject hitParticle;
+        [SerializeField] private Transform particlePosition;
         
         private bool _onAnimation;
         private bool _isSelected;
@@ -24,10 +26,13 @@ namespace _YabuGames.Scripts.Controllers
         private int _hitCount;
         private bool _tutorialSeen;
         private bool _isActive;
+        private Vector3 _disabledPosition;
+        private Vector3 _disabledRotation;
 
         private void Start()
         {
-            disabledPosition.SetPositionAndRotation(transform.position,transform.rotation);
+            _disabledPosition = transform.position;
+            _disabledRotation = transform.rotation.eulerAngles;
         }
 
         private void Update()
@@ -68,6 +73,8 @@ namespace _YabuGames.Scripts.Controllers
             _onAnimation = true;
             transform.DOPunchRotation(Vector3.forward * 20, .4f, 10, 1f).OnComplete(ResetHammer);
             ShakeManager.Instance.ShakeCamera(false);
+            HapticManager.Instance.PlayHeavyHaptic();
+            Instantiate(hitParticle, particlePosition.position,Quaternion.identity);
             liquid.position += Vector3.down * pushMultiplier;
 
             if (!_tutorialSeen)
@@ -122,10 +129,9 @@ namespace _YabuGames.Scripts.Controllers
 
             void GoToIdlePosition()
             {
-                var desiredIdleRotation = disabledPosition.rotation.eulerAngles;
                 _isSelected = false;
-                transform.DOMove(disabledPosition.position, 1).SetEase(Ease.OutSine);
-                transform.DORotate(desiredIdleRotation, 1).SetEase(Ease.InSine);
+                transform.DOMove(_disabledPosition, 1).SetEase(Ease.OutSine);
+                transform.DORotate(_disabledRotation, 1).SetEase(Ease.InSine);
             }
         }
     }

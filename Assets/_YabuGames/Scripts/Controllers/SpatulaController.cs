@@ -12,8 +12,10 @@ namespace _YabuGames.Scripts.Controllers
 {
     public class SpatulaController : MonoBehaviour,ITool
     {
-        [SerializeField] private Transform activePosition, disabledPosition;
-
+        [SerializeField] private Transform activePosition;
+        [SerializeField] private GameObject effect;
+        public AudioClip clip;
+        
         private Transform _collector;
         private DragNDropController _dragNDrop;
         private Transform _currentOre;
@@ -22,7 +24,9 @@ namespace _YabuGames.Scripts.Controllers
         private int _collectedOre;
         private bool _tutorialSeen;
         private BoxCollider _collider;
-        public AudioClip clip;
+        private Vector3 _disabledPosition;
+        private Vector3 _disabledRotation;
+
 
         private void Awake()
         {
@@ -33,7 +37,8 @@ namespace _YabuGames.Scripts.Controllers
 
         private void Start()
         {
-            disabledPosition.SetPositionAndRotation(transform.position,transform.rotation);
+            _disabledPosition = transform.position;
+            _disabledRotation = transform.rotation.eulerAngles;
         }
 
         private void Update()
@@ -45,7 +50,7 @@ namespace _YabuGames.Scripts.Controllers
         {
             if (_currentOre && _timer <= 0)
             {
-                _vibrationCoolDown -= .1f;
+                _vibrationCoolDown -= .4f;
                 _timer += _vibrationCoolDown;
 
                 if (_vibrationCoolDown <= 0)
@@ -54,6 +59,7 @@ namespace _YabuGames.Scripts.Controllers
                     return;
                 }
 
+                HapticManager.Instance.PlayRigidHaptic();
                 AudioSource.PlayClipAtPoint(clip,Camera.main.transform.position);
                 transform.DOShakeRotation(_vibrationCoolDown, Vector3.one * 2, 8, 90, true);
             }
@@ -69,7 +75,9 @@ namespace _YabuGames.Scripts.Controllers
             
             var randomizedDirection = Random.Range(-.05f, .06f);
             var desiredPosition = _collector.position;
-  
+
+            Instantiate(effect, _currentOre.position, Quaternion.identity);
+            HapticManager.Instance.PlayWarningHaptic();
             ShakeManager.Instance.ShakeCamera(true);
             _currentOre.SetParent(null);
             desiredPosition.x += randomizedDirection;
@@ -127,11 +135,10 @@ namespace _YabuGames.Scripts.Controllers
 
         public void Disable()
         {
-            var desiredRotation = disabledPosition.rotation.eulerAngles;
             _collider.enabled = false;
             _dragNDrop.enabled = false;
-            transform.DOMove(disabledPosition.position, 1).SetEase(Ease.OutSine);
-            transform.DORotate(desiredRotation, 1).SetEase(Ease.InSine);
+            transform.DOMove(_disabledPosition, 1).SetEase(Ease.OutSine);
+            transform.DORotate(_disabledRotation, 1).SetEase(Ease.InSine);
             
         }
     }

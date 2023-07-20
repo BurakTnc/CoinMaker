@@ -11,7 +11,7 @@ namespace _YabuGames.Scripts.Controllers
 {
     public class StampController : MonoBehaviour,ITool
     {
-        [SerializeField] private Transform activePosition, disabledPosition;
+        [SerializeField] private Transform activePosition;
         [SerializeField] private float pushMultiplier;
         
         private bool _onAnimation;
@@ -23,10 +23,13 @@ namespace _YabuGames.Scripts.Controllers
         private float _delayer = .25f;
         private bool _tutorialSeen;
         public AudioClip _clip;
+        private Vector3 _disabledPosition;
+        private Vector3 _disabledRotation;
 
         private void Start()
         {
-            disabledPosition.SetPositionAndRotation(transform.position,transform.rotation);
+            _disabledPosition = transform.position;
+            _disabledRotation = transform.rotation.eulerAngles;
         }
 
         private void Update()
@@ -83,7 +86,7 @@ namespace _YabuGames.Scripts.Controllers
                 ToolSignals.Instance.StampHit?.Invoke();
                 ShakeManager.Instance.ShakeCamera(true);
                 AudioSource.PlayClipAtPoint(_clip,Camera.main.transform.position);
-                //vibrate
+                HapticManager.Instance.PlayRigidHaptic();
                 _timer += _stampingCooldown;
             }
 
@@ -138,11 +141,9 @@ namespace _YabuGames.Scripts.Controllers
 
             void GoToIdle()
             {
-                var desiredRotation = disabledPosition.rotation.eulerAngles;
-
                 _isSelected = false;
-                transform.DOMove(disabledPosition.position, 1).SetEase(Ease.OutSine).SetDelay(1);
-                transform.DORotate(desiredRotation, 1).SetEase(Ease.InSine).SetDelay(1);
+                transform.DOMove(_disabledPosition, 1).SetEase(Ease.OutSine).SetDelay(1);
+                transform.DORotate(_disabledRotation, 1).SetEase(Ease.InSine).SetDelay(1);
             }
         }
     }

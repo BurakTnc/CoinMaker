@@ -11,6 +11,7 @@ namespace _YabuGames.Scripts.Objects
         [SerializeField] private GameObject fire, liquid, pouringEffect;
         [SerializeField] private Transform pouringPosition, pouredLiquid;
         [SerializeField] private Vector3 pouringRotation;
+        [SerializeField] private GameObject fireFlies;
 
         private Vector3 _startPosition;
 
@@ -80,6 +81,7 @@ namespace _YabuGames.Scripts.Objects
                 .OnComplete(GoToPreviousPosition);
             liquid.transform.DOScaleZ(0, .5f).SetDelay(3.7f);
             pouredLiquid.gameObject.SetActive(true);
+            fireFlies.SetActive(true);
         }
 
         private void GoToPreviousPosition()

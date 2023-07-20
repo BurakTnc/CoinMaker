@@ -3,6 +3,7 @@ using _YabuGames.Scripts.Enums;
 using _YabuGames.Scripts.Signals;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace _YabuGames.Scripts.Managers
 {
@@ -13,6 +14,7 @@ namespace _YabuGames.Scripts.Managers
         [SerializeField] private GameObject mainPanel, gamePanel, winPanel, stampPanel,orePanel;
         [SerializeField] private TextMeshProUGUI[] moneyText;
         [SerializeField] private GameObject[] tutorialTexts;
+        [SerializeField] private TextMeshProUGUI earnedText;
 
         private int _tutorialSeen;
 
@@ -55,6 +57,7 @@ namespace _YabuGames.Scripts.Managers
                     CoreGameSignals.Instance.OnLevelWin += LevelWin;
                     CoreGameSignals.Instance.OnLevelFail += LevelLose;
                     CoreGameSignals.Instance.OnGameStart += OnGameStart;
+                    CoreGameSignals.Instance.OnSave += SetMoneyTexts;
                     LevelSignals.Instance.OnChangeGameState += SetStates;
                     ToolSignals.Instance.TutorialInput += TutorialInput;
                 }
@@ -64,6 +67,7 @@ namespace _YabuGames.Scripts.Managers
                     CoreGameSignals.Instance.OnLevelWin -= LevelWin;
                     CoreGameSignals.Instance.OnLevelFail -= LevelLose;
                     CoreGameSignals.Instance.OnGameStart -= OnGameStart;
+                    CoreGameSignals.Instance.OnSave -= SetMoneyTexts;
                     LevelSignals.Instance.OnChangeGameState -= SetStates;
                     ToolSignals.Instance.TutorialInput -= TutorialInput;
                 }
@@ -131,6 +135,9 @@ namespace _YabuGames.Scripts.Managers
         }
         private void LevelWin()
         {
+            var earnValue = Random.Range(96, 246);
+            GameManager.Instance.ArrangeMoney(earnValue);
+            earnedText.text = earnValue.ToString();
             gamePanel.SetActive(false);
             winPanel.SetActive(true);
             HapticManager.Instance.PlaySuccessHaptic();

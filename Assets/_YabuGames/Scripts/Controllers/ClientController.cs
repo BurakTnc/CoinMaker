@@ -11,7 +11,7 @@ namespace _YabuGames.Scripts.Controllers
     public class ClientController : MonoBehaviour
     {
         [SerializeField] private CustomerData[] customerData;
-        [SerializeField] private Transform orderingPosition;
+        [SerializeField] private Transform orderingPosition, startPosition;
 
         private Vector3 _startPosition;
         private Sprite _coinImage;
@@ -80,6 +80,7 @@ namespace _YabuGames.Scripts.Controllers
 
             void OpenChatBubble()
             {
+                _chosenClient.transform.DOLocalRotate(new Vector3(0, 180, 0), .5f).SetEase(Ease.InSine);
                 _chatBubble.gameObject.SetActive(true);
                 _chatBubble.transform.DOScale(_chatBubbleScale, 1).SetEase(Ease.OutBack).OnComplete(EndOrder);
             }
@@ -91,8 +92,8 @@ namespace _YabuGames.Scripts.Controllers
 
             void Leave()
             {
-                _chosenClient.DORotate(Vector3.zero,.5f).SetEase(Ease.OutSine);
-                _chosenClient.DOMove(_startPosition, 2).SetEase(Ease.InSine)
+                _chosenClient.DORotate(new Vector3(0,256,0),.5f).SetEase(Ease.OutSine);
+                _chosenClient.DOMove(startPosition.position, 2).SetEase(Ease.InSine)
                     .OnComplete(() => _chosenClient.gameObject.SetActive(true));
                 LevelSignals.Instance.OnChangeGameState?.Invoke(GameState.SelectingOre);
             }

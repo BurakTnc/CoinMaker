@@ -39,6 +39,7 @@ namespace _YabuGames.Scripts.Controllers
                 return;
             var stone = transform.GetChild(_selectedOre);
             stone.DOMove(activePosition.position, 1).SetEase(Ease.OutSine).SetDelay(0).OnComplete(BeginMining);
+            stone.DORotate(activePosition.rotation.eulerAngles, 1);
         }
 
         private void BeginMining()

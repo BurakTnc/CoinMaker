@@ -9,6 +9,8 @@ namespace _YabuGames.Scripts.Controllers
     public class CoinController : MonoBehaviour
     {
         [SerializeField] private Material[] coinMaterials;
+        [SerializeField] private GameObject waterEffect;
+        [SerializeField] private GameObject hotCoinEffect;
 
         private GameObject _selectedCoin, _stamp;
         private int _coinIndex;
@@ -103,6 +105,8 @@ namespace _YabuGames.Scripts.Controllers
                 _isColored = true;
                 coinRenderer.material = coinMaterials[_coinIndex];
                 stampRenderer.material = coinMaterials[_coinIndex];
+                waterEffect.SetActive(true);
+                hotCoinEffect.SetActive(true);
                 
             }
             
