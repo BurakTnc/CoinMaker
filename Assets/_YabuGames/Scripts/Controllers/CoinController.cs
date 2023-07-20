@@ -66,7 +66,7 @@ namespace _YabuGames.Scripts.Controllers
 
         private void ShowTheCoin()
         {
-            transform.DOMoveY(2.5f, 1).SetEase(Ease.OutBack).OnComplete(Rotate).SetDelay(2.5f);
+            transform.DOMoveY(2.5f, 1).SetEase(Ease.OutBack).OnComplete(Rotate).SetDelay(4f);
 
             void Rotate()
             {

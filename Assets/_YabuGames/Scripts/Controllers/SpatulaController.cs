@@ -22,6 +22,7 @@ namespace _YabuGames.Scripts.Controllers
         private int _collectedOre;
         private bool _tutorialSeen;
         private BoxCollider _collider;
+        public AudioClip clip;
 
         private void Awake()
         {
@@ -44,7 +45,7 @@ namespace _YabuGames.Scripts.Controllers
         {
             if (_currentOre && _timer <= 0)
             {
-                _vibrationCoolDown -= .2f;
+                _vibrationCoolDown -= .1f;
                 _timer += _vibrationCoolDown;
 
                 if (_vibrationCoolDown <= 0)
@@ -53,6 +54,7 @@ namespace _YabuGames.Scripts.Controllers
                     return;
                 }
 
+                AudioSource.PlayClipAtPoint(clip,Camera.main.transform.position);
                 transform.DOShakeRotation(_vibrationCoolDown, Vector3.one * 2, 8, 90, true);
             }
 

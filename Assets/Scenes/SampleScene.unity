@@ -458,6 +458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activePosition: {fileID: 981064317}
   disabledPosition: {fileID: 1694251020}
+  clip: {fileID: 8300000, guid: 831c963e0c3114801a356aad2c5aa6d8, type: 3}
 --- !u!1 &394954516
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,7 +690,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 531981742}
   m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: -1.002, y: 0.84099996, z: 3.9}
+  m_LocalPosition: {x: 0.37, y: 0.84099996, z: 3.9}
   m_LocalScale: {x: 0.50000024, y: 0.50000024, z: 0.5000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -903,6 +904,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activePosition: {fileID: 274332386}
   disabledPosition: {fileID: 531981743}
+  clip: {fileID: 8300000, guid: 831c963e0c3114801a356aad2c5aa6d8, type: 3}
 --- !u!1 &600559071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1551,7 +1553,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: ea5157c258fdf4ebdb360c254d31d1af, type: 2}
   - {fileID: 2100000, guid: d173e276d614647e99af779b93aa7eb4, type: 2}
   - {fileID: 2100000, guid: 02d1b51cebab84650a5917e1c580954f, type: 2}
-  _coinIndex: 0
 --- !u!4 &922048058
 Transform:
   m_ObjectHideFlags: 0

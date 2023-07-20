@@ -51,10 +51,10 @@ namespace _YabuGames.Scripts.Controllers
                 return;
             if (_coolingTimer <= 0)
             {
-                if(_coolingTimer>1)
+                if(_coolingCooldown>1)
                     return;
                 _coolingCooldown += _coolingDelayer;
-                _coolingDelayer += .25f;
+                _coolingDelayer += .02f;
                 AudioSource.PlayClipAtPoint(clip,_camera.transform.position);
                 _coolingTimer += _coolingCooldown;
             }
