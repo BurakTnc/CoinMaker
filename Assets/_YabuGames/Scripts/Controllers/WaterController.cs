@@ -22,7 +22,7 @@ namespace _YabuGames.Scripts.Controllers
         private bool _canCool;
         private bool _tutorialSeen;
         private bool _isCooling;
-        private float _coolingTimer, _coolingCooldown=.03f, _coolingDelayer;
+        private float _coolingTimer, _coolingCooldown=.03f, _coolingDelayer=.05f;
         public AudioClip clip;
 
         private void Awake()
@@ -54,9 +54,14 @@ namespace _YabuGames.Scripts.Controllers
                 if(_coolingTimer>1)
                     return;
                 _coolingCooldown += _coolingDelayer;
-                _coolingDelayer += .5f;
+                _coolingDelayer += .25f;
                 AudioSource.PlayClipAtPoint(clip,_camera.transform.position);
+                _coolingTimer += _coolingCooldown;
             }
+
+            _coolingTimer -= Time.deltaTime;
+            _coolingTimer = Mathf.Clamp(_coolingTimer, 0, _coolingCooldown);
+
         }
         private void BeginDrag()
         {

@@ -43,7 +43,7 @@ namespace _YabuGames.Scripts.Controllers
             if (Input.GetMouseButton(0))
             {
                 _isReset = false;
-                var currentRotation = transform.rotation.eulerAngles;
+                var currentRotation = transform.localRotation.eulerAngles;
                 if (currentRotation.z <= 270)
                 {
                     Hit();
@@ -91,7 +91,7 @@ namespace _YabuGames.Scripts.Controllers
             var desiredRotation = activePosition.rotation.eulerAngles;
 
             _isReset = true;
-            transform.DORotate(desiredRotation, .7f).SetEase(Ease.InSine)
+            transform.DOLocalRotate(desiredRotation, .7f).SetEase(Ease.InSine)
                 .OnComplete(() => _onAnimation = false);
         }
         
